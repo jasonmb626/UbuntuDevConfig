@@ -80,7 +80,7 @@ python3 -m pip install --user --upgrade pynvim
 ```sh
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 ```
-<sup>Copied from `https://github.com/nvm-sh/nvm`</sup>
+<sup>Copied from `https://github.com/nvm-sh/nvm`. Suggest you check for more recent version.</sup>
 
 Close and reopen terminal
 
@@ -88,6 +88,11 @@ Close and reopen terminal
 #### Both COC and Vimspector need this older node version
 ```sh
 nvm i --lts 10
+```
+
+### Make nvm set node version on load
+```sh
+echo "nvm use 10" >> ~/.bashrc
 ```
 
 ### Install node support
@@ -105,6 +110,8 @@ Copied from `https://github.com/junegunn/vim-plug#unix-linux`
 ### Create your neovim config
 ```sh
 mkdir -p ~/.config/nvim
+cd ~/.config/nvim
+touch init.vim settings.vim coc.vim keys.vim keys-whichkey.vim
 nvim ~/.config/nvim/init.vim
 ```
 
@@ -149,7 +156,7 @@ let g:airline_powerline_fonts = 1
 ```
 Save
 
-### Now edit ~/.config/nvim/settings.vim
+### Now gf on ~/.config/nvim/settings.vim to edit it
 ```
 colorscheme nord
 syntax enable                           " Enables syntax highlighing
@@ -248,7 +255,7 @@ Restart neovim again
 
 ### Install CoC Plugins
 ```
-CocInstall coc-marketplace coc-json coc-tsserver coc-explorer
+CocInstall coc-marketplace coc-json coc-tsserver coc-tslint coc-explorer coc-deno
 ```
 
 For any plugins you don't know the exact name of do 
@@ -267,6 +274,18 @@ and do a fuzzy find
 Copy from here
 -https://github.com/puremourning/vimspector#javascript-typescript-etc  
 -https://github.com/puremourning/vimspector#python
+
+### Install Screenkey
+```sh
+sudo snap install --edge screenkey
+```
+
+### Make screenkey start on boot
+Superkey -> type "Startup" open startup applications
+Add new
+```
+/snap/bin/screenkey -p fixed -g 325x50-5+5 --key-mode composed --bak-mode normal --mods-mode normal --bg-color '#434C5E' --font-color '#A3BE8C' --opacity '0.8'
+```
 
 ## Install additional development tools
 - Google Chrome
