@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>NeovimSetup</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+pre {
+   margin: 1em 0; padding: 1rem; border-radius: 10px; background-color: #f6f8fa       
+}
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="setting-up-my-ubuntu-development-machine">Setting up my Ubuntu development machine</h1>
+<p>From a fresh Ubuntu 20.04 installation, updated and guest additions installed.</p>
+<h2 id="desktop-appearance">Desktop Appearance</h2>
+<p>Change the look and feel to your prefrences.</p>
+<h3 id="get-your-wallpaper">Get your wallpaper</h3>
+<p>Download your <a href="https://wallpaperaccess.com/download/blue-lagoon-3908317">wallpaper</a> and set it as your desktop wallpaper</p>
+<h3 id="set-ubuntu-dark-theme">Set Ubuntu Dark Theme</h3>
+<h3 id="install-dependencies-for-extending-gnome-functionality">Install dependencies for extending Gnome functionality</h3>
+<ul>
+<li>chrome-gnome-shell for shell extension installation via web</li>
+<li>gnome-tweaks is the gnome tweak tool</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install chrome-gnome-shell gnome-tweaks</a></code></pre></div>
+<h3 id="enable-user-themes">Enable user themes</h3>
+<p>Install from the <a href="https://extensions.gnome.org/extension/19/user-themes/">User Themes</a> extension page</p>
+<h2 id="download-your-preferred-theme">Download your preferred theme</h2>
+<p><a href="https://www.gnome-look.org/p/1267246/">Nordic GTK3 theme</a> - Download Nordic-bluish-accent.tar.xz, unzip contents to ~/.themes - Download Nordic-Folders.tar.xz, unzip its “nordic folder” to ~/.icons (you can ignore the noric-dark folder)</p>
+<h3 id="set-the-themes">Set the themes</h3>
+<p>Open tweaks -&gt; Appearance -&gt; set shell, applications to Nordic-bluish-accent, set icons to Nordic -&gt; Window Titlebars -&gt; Placement = Left</p>
+<h2 id="install-neovim.-customize-it-and-terminal-appearance">Install neovim. Customize it and terminal appearance</h2>
+<h3 id="install-neovim">Install neovim</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">sudo</span> snap install nvim --classic</a></code></pre></div>
+<h3 id="install-additional-dependencies">Install additional dependencies</h3>
+<ul>
+<li>curl for script downloads</li>
+<li>git for version control</li>
+<li>python3-pip for Vimspector</li>
+<li>fonts-powerline for fancy prompt, vim airline</li>
+<li>xsel for clipboard support</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">sudo</span> apt install curl git python3-pip fonts-powerline xsel</a></code></pre></div>
+<h3 id="install-theme-for-gnome-terminal-todo---try-termite-terminator-alacritty">Install theme for Gnome Terminal (TODO - try termite, terminator, alacritty)</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="fu">git</span> clone https://github.com/arcticicestudio/nord-gnome-terminal.git</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="bu">cd</span> nord-gnome-terminal/src</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="ex">./nord.sh</span></a></code></pre></div>
+<p><sup>Copied from <code>https://www.nordtheme.com</code> -&gt; Ports -&gt; Gnome Terminal -&gt; GitHub page</sup></p>
+<h3 id="set-nord-as-default-profile-in-gnome-terminal">Set Nord as default profile in Gnome Terminal</h3>
+<h3 id="install-fancy-prompt">Install Fancy Prompt</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="fu">git</span> clone --recursive https://github.com/andresgongora/synth-shell.git</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="bu">cd</span> synth-shell</a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="ex">./setup.sh</span></a></code></pre></div>
+<p><sup>Copied from <code>https://github.com/andresgongora/synth-shell</code></sup></p>
+<h3 id="install-python-provider-for-neovim">Install Python Provider for neovim</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="ex">python3</span> -m pip install --user --upgrade pynvim</a></code></pre></div>
+<h3 id="install-nvm">Install nvm</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="ex">curl</span> -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh <span class="kw">|</span> <span class="fu">bash</span></a></code></pre></div>
+<p><sup>Copied from <code>https://github.com/nvm-sh/nvm</code></sup></p>
+<p>Close and reopen terminal</p>
+<h3 id="install-node-v10-lts">Install Node v10 LTS</h3>
+<h4 id="both-coc-and-vimspector-need-this-older-node-version">Both COC and Vimspector need this older node version</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="ex">nvm</span> i --lts 10</a></code></pre></div>
+<h3 id="install-node-support">Install node support</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" title="1"><span class="ex">npm</span> i -g neovim</a></code></pre></div>
+<h3 id="install-vimplug">Install VIMPlug</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" title="1"><span class="fu">sh</span> -c <span class="st">&#39;curl -fLo &quot;${XDG_DATA_HOME:-$HOME/.local/share}&quot;/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&#39;</span></a></code></pre></div>
+<p>Copied from <code>https://github.com/junegunn/vim-plug#unix-linux</code></p>
+<h3 id="create-your-neovim-config">Create your neovim config</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb11-1" title="1"><span class="fu">mkdir</span> -p ~/.config/nvim</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="ex">nvim</span> ~/.config/nvim/init.vim</a></code></pre></div>
+<h3 id="put-in-your-plugins-sensible-defaults-etc">Put in your plugins, sensible defaults, etc</h3>
+<pre><code>call plug#begin(&#39;~/.config/nvim/autoload/plugged&#39;)
+
+Plug &#39;neoclide/coc.nvim&#39;, {&#39;branch&#39;: &#39;release&#39;}
+Plug &#39;jasonmb626/nord-vim&#39;
+Plug &#39;puremourning/vimspector&#39;
+Plug &#39;szw/vim-maximizer&#39;
+Plug &#39;vim-airline/vim-airline&#39;
+Plug &#39;vim-airline/vim-airline-themes&#39;
+Plug &#39;kdheepak/lazygit.nvim&#39;, { &#39;branch&#39;: &#39;nvim-v0.4.3&#39; }
+Plug &#39;tpope/vim-surround&#39;
+Plug &#39;tpope/vim-fugitive&#39;
+Plug &#39;tpope/vim-commentary&#39;
+Plug &#39;bkad/CamelCaseMotion&#39;
+Plug &#39;liuchengxu/vim-which-key&#39;
+Plug &#39;sheerun/vim-polyglot&#39;
+Plug &#39;voldikss/vim-floaterm&#39;
+Plug &#39;JamshedVesuna/vim-markdown-preview&#39;
+
+call plug#end()
+
+let g:airline_theme=&#39;simple&#39;
+
+&quot;Optional set node path for coc (If running multiple node versions)
+&quot;let g:coc_node_path = &#39;/path/to/node&#39;
+
+source ~/.config/nvim/settings.vim
+source ~/.config/nvim/coc.vim
+source ~/.config/nvim/keys.vim
+source ~/.config/nvim/keys-whichkey.vim
+&quot; Register which key map
+call which_key#register(&#39;&lt;Space&gt;&#39;, &quot;g:which_key_map&quot;)
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = &#39; &#39;
+let g:airline#extensions#tabline#left_alt_sep = &#39;|&#39;
+let g:airline_powerline_fonts = 1</code></pre>
+<p>Save</p>
+<h3 id="now-edit-.confignvimsettings.vim">Now edit ~/.config/nvim/settings.vim</h3>
+<pre><code>colorscheme nord
+syntax enable                           &quot; Enables syntax highlighing
+set hidden                              &quot; Required to keep multiple buffers open multiple buffers
+set nowrap                              &quot; Display long lines as just one line
+set tabstop=2                           &quot; Insert 2 spaces for a tab
+set shiftwidth=2                        &quot; Change the number of space characters inserted for indentation
+set smarttab                            &quot; Makes tabbing smarter will realize you have 2 vs 4
+set expandtab                           &quot; Converts tabs to spaces
+set smartindent                         &quot; Makes indenting smart
+set autoindent                          &quot; Good auto indent
+set ruler                                   &quot; Show the cursor position all the time
+set cmdheight=2                         &quot; More space for displaying messages
+set mouse=a                             &quot; Enable your mouse
+set splitbelow                          &quot; Horizontal splits will automatically be below
+set splitright                          &quot; Vertical splits will automatically be to the right
+&quot;set t_Co=256                            &quot; Support 256 colors
+set termguicolors
+set conceallevel=0                      &quot; So that I can see `` in markdown files
+set laststatus=2                        &quot; Always display the status line
+set number                              &quot; Line numbers
+set cursorline                          &quot; Enable highlighting of the current line
+set showtabline=2                       &quot; Always show tabs
+set noshowmode                          &quot; We don&#39;t need to see things like -- INSERT -- anymore
+set nobackup                            &quot; This is recommended by coc
+set nowritebackup                       &quot; This is recommended by coc
+set shortmess+=c                        &quot; Don&#39;t pass messages to |ins-completion-menu|.
+set signcolumn=yes                      &quot; Always show the signcolumn, otherwise it would shift the text each time
+set updatetime=300                      &quot; Faster completion
+set timeoutlen=100                      &quot; By default timeoutlen is 1000 ms
+set clipboard=unnamedplus               &quot; Copy paste between vim and everything else
+set incsearch</code></pre>
+<p>save</p>
+<h3 id="now-edit-.confignvimcoc.vim">Now edit ~/.config/nvim/coc.vim</h3>
+<p>Copy and paste example vim config from COCs <a href="https://github.com/neoclide/coc.nvim">github</a> page. Save</p>
+<h3 id="edit-keys.vim">Edit keys.vim</h3>
+<p>Copy and paste from your workbook Save</p>
+<h3 id="edit-keys-whichkey.vim">Edit keys-whichkey.vim</h3>
+<p>Copy and paste from your workbook Save</p>
+<h3 id="populate-.confignvimcoc-settings.json">Populate ~/.config/nvim/coc-settings.json</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb14-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb14-2" title="2">  <span class="er">//</span> <span class="er">autoformat</span></a>
+<a class="sourceLine" id="cb14-3" title="3">  <span class="dt">&quot;coc.preferences.formatOnSaveFiletypes&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb14-4" title="4">    <span class="st">&quot;css&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb14-5" title="5">    <span class="st">&quot;markdown&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb14-6" title="6">    <span class="st">&quot;javascript&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb14-7" title="7">    <span class="st">&quot;graphql&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb14-8" title="8">    <span class="st">&quot;html&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb14-9" title="9">    <span class="st">&quot;yaml&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb14-10" title="10">    <span class="st">&quot;json&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb14-11" title="11">    <span class="st">&quot;python&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb14-12" title="12">    <span class="st">&quot;java&quot;</span></a>
+<a class="sourceLine" id="cb14-13" title="13">  <span class="ot">]</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb14-14" title="14">  <span class="dt">&quot;coc.preferences.hoverTarget&quot;</span><span class="fu">:</span> <span class="st">&quot;float&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb14-15" title="15">  <span class="er">//</span> <span class="er">emmet</span></a>
+<a class="sourceLine" id="cb14-16" title="16">  <span class="dt">&quot;emmet.includeLanguages&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb14-17" title="17">    <span class="dt">&quot;vue-html&quot;</span><span class="fu">:</span> <span class="st">&quot;html&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb14-18" title="18">    <span class="dt">&quot;javascript&quot;</span><span class="fu">:</span> <span class="st">&quot;javascriptreact&quot;</span></a>
+<a class="sourceLine" id="cb14-19" title="19">  <span class="fu">},</span></a>
+<a class="sourceLine" id="cb14-20" title="20"></a>
+<a class="sourceLine" id="cb14-21" title="21">  <span class="er">//</span> <span class="er">explorer</span></a>
+<a class="sourceLine" id="cb14-22" title="22">  <span class="dt">&quot;explorer.width&quot;</span><span class="fu">:</span> <span class="dv">30</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb14-23" title="23">  <span class="dt">&quot;explorer.file.root.template&quot;</span><span class="fu">:</span> <span class="st">&quot;[icon] [git] [hidden &amp; 1][root]&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb14-24" title="24">  <span class="dt">&quot;explorer.icon.enableNerdfont&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb14-25" title="25">  <span class="dt">&quot;explorer.previewAction.onHover&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb14-26" title="26">  <span class="dt">&quot;explorer.icon.enableVimDevicons&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb14-27" title="27">  <span class="dt">&quot;explorer.file.showHiddenFiles&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb14-28" title="28">  <span class="dt">&quot;explorer.keyMappings.global&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb14-29" title="29">    <span class="dt">&quot;&lt;cr&gt;&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;expandable?&quot;</span><span class="ot">,</span> <span class="st">&quot;expand&quot;</span><span class="ot">,</span> <span class="st">&quot;open&quot;</span><span class="ot">]</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb14-30" title="30">    <span class="dt">&quot;v&quot;</span><span class="fu">:</span> <span class="st">&quot;open:vsplit&quot;</span></a>
+<a class="sourceLine" id="cb14-31" title="31">  <span class="fu">},</span></a>
+<a class="sourceLine" id="cb14-32" title="32"></a>
+<a class="sourceLine" id="cb14-33" title="33">  <span class="dt">&quot;bookmark.sign&quot;</span><span class="fu">:</span> <span class="st">&quot;}&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb14-34" title="34"></a>
+<a class="sourceLine" id="cb14-35" title="35">  <span class="er">//coc-emoji</span></a>
+<a class="sourceLine" id="cb14-36" title="36">  <span class="dt">&quot;coc.source.emoji.filetypes&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;markdown&quot;</span><span class="ot">]</span><span class="fu">}</span></a></code></pre></div>
+<p>Restart neovim</p>
+<h3 id="install-your-plugins">Install your plugins</h3>
+<pre><code>:PlugInstall</code></pre>
+<p>Restart neovim again</p>
+<h3 id="install-coc-plugins">Install CoC Plugins</h3>
+<pre><code>CocInstall coc-marketplace coc-json coc-tsserver coc-explorer</code></pre>
+<p>For any plugins you don’t know the exact name of do</p>
+<pre><code>CoCList marketplace</code></pre>
+<p>and do a fuzzy find</p>
+<h3 id="install-vimspector-adapter">Install Vimspector adapter</h3>
+<pre><code>:VimspectorInstall vscode-node-debug2</code></pre>
+<p><sup>Copied from <code>Copied from https://github.com/puremourning/vimspector#installation</code></sup></p>
+<h3 id="youll-need-a-.vimspector.json-in-the-root-of-your-project-folder">You’ll need a .vimspector.json in the root of your project folder</h3>
+<p>Copy from here -https://github.com/puremourning/vimspector#javascript-typescript-etc<br />
+-https://github.com/puremourning/vimspector#python</p>
+<h2 id="install-additional-development-tools">Install additional development tools</h2>
+<ul>
+<li>Google Chrome</li>
+<li>Postman</li>
+</ul>
+</body>
+</html>
