@@ -2,6 +2,23 @@
 
 From a fresh Ubuntu 20.04 installation, updated and guest additions installed.
 
+## Install your ssh keys
+
+Copy your ssh_keys.zip to ~/.ssh
+```sh
+unzip ssh_keys.zip
+```
+(Enter password)
+```sh
+rm ssh_keys.zip
+```
+You should now have these files and permissions in that folder.
+```
+-rw------- 1 dev dev 3.4K xxxx-xx-xx 07:14 id_rsa
+-rw-r--r-- 1 dev dev  749 xxxx-xx-xx 06-02 07:14 id_rsa.pub
+-rw-r--r-- 1 dev dev 2.2K xxxx-xx-xx 02-07 16:28 known_hosts
+```
+
 ## Desktop Appearance
 
 Change the look and feel to your prefrences.
@@ -194,6 +211,14 @@ save
 
 ### Now edit ~/.config/nvim/coc.vim
 Copy and paste example vim config from COCs [github](https://github.com/neoclide/coc.nvim) page.
+
+Comment out the line where <CR> autocompletes
+```
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+```
 Save
 
 ### Edit keys.vim

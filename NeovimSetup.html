@@ -81,6 +81,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <body>
 <h1 id="setting-up-my-ubuntu-development-machine">Setting up my Ubuntu development machine</h1>
 <p>From a fresh Ubuntu 20.04 installation, updated and guest additions installed.</p>
+<h2 id="install-your-ssh-keys">Install your ssh keys</h2>
+<p>Copy your ssh_keys.zip to ~/.ssh</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">unzip</span> ssh_keys.zip</a></code></pre></div>
+<p>(Enter password)</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">rm</span> ssh_keys.zip</a></code></pre></div>
+<p>You should now have these files and permissions in that folder.</p>
+<pre><code>-rw------- 1 dev dev 3.4K xxxx-xx-xx 07:14 id_rsa
+-rw-r--r-- 1 dev dev  749 xxxx-xx-xx 06-02 07:14 id_rsa.pub
+-rw-r--r-- 1 dev dev 2.2K xxxx-xx-xx 02-07 16:28 known_hosts</code></pre>
 <h2 id="desktop-appearance">Desktop Appearance</h2>
 <p>Change the look and feel to your prefrences.</p>
 <h3 id="get-your-wallpaper">Get your wallpaper</h3>
@@ -91,7 +100,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>chrome-gnome-shell for shell extension installation via web</li>
 <li>gnome-tweaks is the gnome tweak tool</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">sudo</span> apt install chrome-gnome-shell gnome-tweaks</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="fu">sudo</span> apt install chrome-gnome-shell gnome-tweaks</a></code></pre></div>
 <h3 id="enable-user-themes">Enable user themes</h3>
 <p>Install from the <a href="https://extensions.gnome.org/extension/19/user-themes/">User Themes</a> extension page</p>
 <h2 id="download-your-preferred-theme">Download your preferred theme</h2>
@@ -100,7 +109,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Open tweaks -&gt; Appearance -&gt; set shell, applications to Nordic-bluish-accent, set icons to Nordic -&gt; Window Titlebars -&gt; Placement = Left</p>
 <h2 id="install-neovim.-customize-it-and-terminal-appearance">Install neovim. Customize it and terminal appearance</h2>
 <h3 id="install-neovim">Install neovim</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">sudo</span> snap install nvim --classic</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="fu">sudo</span> snap install nvim --classic</a></code></pre></div>
 <h3 id="install-additional-dependencies">Install additional dependencies</h3>
 <ul>
 <li>curl for script downloads</li>
@@ -109,39 +118,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>fonts-powerline for fancy prompt, vim airline</li>
 <li>xsel for clipboard support</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">sudo</span> apt install curl git python3-pip fonts-powerline xsel</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="fu">sudo</span> apt install curl git python3-pip fonts-powerline xsel</a></code></pre></div>
 <h3 id="install-theme-for-gnome-terminal-todo---try-termite-terminator-alacritty">Install theme for Gnome Terminal (TODO - try termite, terminator, alacritty)</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="fu">git</span> clone https://github.com/arcticicestudio/nord-gnome-terminal.git</a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="bu">cd</span> nord-gnome-terminal/src</a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="ex">./nord.sh</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="fu">git</span> clone https://github.com/arcticicestudio/nord-gnome-terminal.git</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="bu">cd</span> nord-gnome-terminal/src</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="ex">./nord.sh</span></a></code></pre></div>
 <p><sup>Copied from <code>https://www.nordtheme.com</code> -&gt; Ports -&gt; Gnome Terminal -&gt; GitHub page</sup></p>
 <h3 id="set-nord-as-default-profile-in-gnome-terminal">Set Nord as default profile in Gnome Terminal</h3>
 <h3 id="install-fancy-prompt">Install Fancy Prompt</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="fu">git</span> clone --recursive https://github.com/andresgongora/synth-shell.git</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="bu">cd</span> synth-shell</a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="ex">./setup.sh</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="fu">git</span> clone --recursive https://github.com/andresgongora/synth-shell.git</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="bu">cd</span> synth-shell</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="ex">./setup.sh</span></a></code></pre></div>
 <p><sup>Copied from <code>https://github.com/andresgongora/synth-shell</code></sup></p>
 <h3 id="install-python-provider-for-neovim">Install Python Provider for neovim</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="ex">python3</span> -m pip install --user --upgrade pynvim</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" title="1"><span class="ex">python3</span> -m pip install --user --upgrade pynvim</a></code></pre></div>
 <h3 id="install-nvm">Install nvm</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="ex">curl</span> -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh <span class="kw">|</span> <span class="fu">bash</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" title="1"><span class="ex">curl</span> -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh <span class="kw">|</span> <span class="fu">bash</span></a></code></pre></div>
 <p><sup>Copied from <code>https://github.com/nvm-sh/nvm</code>. Suggest you check for more recent version.</sup></p>
 <p>Close and reopen terminal</p>
 <h3 id="install-node-v10-lts">Install Node v10 LTS</h3>
 <h4 id="both-coc-and-vimspector-need-this-older-node-version">Both COC and Vimspector need this older node version</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="ex">nvm</span> i --lts 10</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb11-1" title="1"><span class="ex">nvm</span> i --lts 10</a></code></pre></div>
 <h3 id="make-nvm-set-node-version-on-load">Make nvm set node version on load</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" title="1"><span class="bu">echo</span> <span class="st">&quot;nvm use 10&quot;</span> <span class="op">&gt;&gt;</span> ~/.bashrc</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb12-1" title="1"><span class="bu">echo</span> <span class="st">&quot;nvm use 10&quot;</span> <span class="op">&gt;&gt;</span> ~/.bashrc</a></code></pre></div>
 <h3 id="install-node-support">Install node support</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" title="1"><span class="ex">npm</span> i -g neovim</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb13-1" title="1"><span class="ex">npm</span> i -g neovim</a></code></pre></div>
 <h3 id="install-vimplug">Install VIMPlug</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb11-1" title="1"><span class="fu">sh</span> -c <span class="st">&#39;curl -fLo &quot;${XDG_DATA_HOME:-$HOME/.local/share}&quot;/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&#39;</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" title="1"><span class="fu">sh</span> -c <span class="st">&#39;curl -fLo &quot;${XDG_DATA_HOME:-$HOME/.local/share}&quot;/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim&#39;</span></a></code></pre></div>
 <p>Copied from <code>https://github.com/junegunn/vim-plug#unix-linux</code></p>
 <h3 id="create-your-neovim-config">Create your neovim config</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb12-1" title="1"><span class="fu">mkdir</span> -p ~/.config/nvim</a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="bu">cd</span> ~/.config/nvim</a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="fu">touch</span> init.vim settings.vim coc.vim keys.vim keys-whichkey.vim</a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="ex">nvim</span> ~/.config/nvim/init.vim</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb15-1" title="1"><span class="fu">mkdir</span> -p ~/.config/nvim</a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="bu">cd</span> ~/.config/nvim</a>
+<a class="sourceLine" id="cb15-3" title="3"><span class="fu">touch</span> init.vim settings.vim coc.vim keys.vim keys-whichkey.vim</a>
+<a class="sourceLine" id="cb15-4" title="4"><span class="ex">nvim</span> ~/.config/nvim/init.vim</a></code></pre></div>
 <h3 id="put-in-your-plugins-sensible-defaults-etc">Put in your plugins, sensible defaults, etc</h3>
 <pre><code>call plug#begin(&#39;~/.config/nvim/autoload/plugged&#39;)
 
@@ -214,48 +223,54 @@ set clipboard=unnamedplus               &quot; Copy paste between vim and everyt
 set incsearch</code></pre>
 <p>save</p>
 <h3 id="now-edit-.confignvimcoc.vim">Now edit ~/.config/nvim/coc.vim</h3>
-<p>Copy and paste example vim config from COCs <a href="https://github.com/neoclide/coc.nvim">github</a> page. Save</p>
+<p>Copy and paste example vim config from COCs <a href="https://github.com/neoclide/coc.nvim">github</a> page.</p>
+<p>Comment out the line where <CR> autocompletes</p>
+<pre><code>&quot; Make &lt;CR&gt; auto-select the first completion item and notify coc.nvim to
+&quot; format on enter, &lt;cr&gt; could be remapped by other vim plugin
+&quot;inoremap &lt;silent&gt;&lt;expr&gt; &lt;cr&gt; pumvisible() ? coc#_select_confirm()
+                              \: &quot;\&lt;C-g&gt;u\&lt;CR&gt;\&lt;c-r&gt;=coc#on_enter()\&lt;CR&gt;&quot;</code></pre>
+<p>Save</p>
 <h3 id="edit-keys.vim">Edit keys.vim</h3>
 <p>Copy and paste from your workbook Save</p>
 <h3 id="edit-keys-whichkey.vim">Edit keys-whichkey.vim</h3>
 <p>Copy and paste from your workbook Save</p>
 <h3 id="populate-.confignvimcoc-settings.json">Populate ~/.config/nvim/coc-settings.json</h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb15-1" title="1"><span class="fu">{</span></a>
-<a class="sourceLine" id="cb15-2" title="2">  <span class="er">//</span> <span class="er">autoformat</span></a>
-<a class="sourceLine" id="cb15-3" title="3">  <span class="dt">&quot;coc.preferences.formatOnSaveFiletypes&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
-<a class="sourceLine" id="cb15-4" title="4">    <span class="st">&quot;css&quot;</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb15-5" title="5">    <span class="st">&quot;markdown&quot;</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb15-6" title="6">    <span class="st">&quot;javascript&quot;</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb15-7" title="7">    <span class="st">&quot;graphql&quot;</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb15-8" title="8">    <span class="st">&quot;html&quot;</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb15-9" title="9">    <span class="st">&quot;yaml&quot;</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb15-10" title="10">    <span class="st">&quot;json&quot;</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb15-11" title="11">    <span class="st">&quot;python&quot;</span><span class="ot">,</span></a>
-<a class="sourceLine" id="cb15-12" title="12">    <span class="st">&quot;java&quot;</span></a>
-<a class="sourceLine" id="cb15-13" title="13">  <span class="ot">]</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb15-14" title="14">  <span class="dt">&quot;coc.preferences.hoverTarget&quot;</span><span class="fu">:</span> <span class="st">&quot;float&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb15-15" title="15">  <span class="er">//</span> <span class="er">emmet</span></a>
-<a class="sourceLine" id="cb15-16" title="16">  <span class="dt">&quot;emmet.includeLanguages&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
-<a class="sourceLine" id="cb15-17" title="17">    <span class="dt">&quot;vue-html&quot;</span><span class="fu">:</span> <span class="st">&quot;html&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb15-18" title="18">    <span class="dt">&quot;javascript&quot;</span><span class="fu">:</span> <span class="st">&quot;javascriptreact&quot;</span></a>
-<a class="sourceLine" id="cb15-19" title="19">  <span class="fu">},</span></a>
-<a class="sourceLine" id="cb15-20" title="20"></a>
-<a class="sourceLine" id="cb15-21" title="21">  <span class="er">//</span> <span class="er">explorer</span></a>
-<a class="sourceLine" id="cb15-22" title="22">  <span class="dt">&quot;explorer.width&quot;</span><span class="fu">:</span> <span class="dv">30</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb15-23" title="23">  <span class="dt">&quot;explorer.file.root.template&quot;</span><span class="fu">:</span> <span class="st">&quot;[icon] [git] [hidden &amp; 1][root]&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb15-24" title="24">  <span class="dt">&quot;explorer.icon.enableNerdfont&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb15-25" title="25">  <span class="dt">&quot;explorer.previewAction.onHover&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb15-26" title="26">  <span class="dt">&quot;explorer.icon.enableVimDevicons&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb15-27" title="27">  <span class="dt">&quot;explorer.file.showHiddenFiles&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb15-28" title="28">  <span class="dt">&quot;explorer.keyMappings.global&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
-<a class="sourceLine" id="cb15-29" title="29">    <span class="dt">&quot;&lt;cr&gt;&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;expandable?&quot;</span><span class="ot">,</span> <span class="st">&quot;expand&quot;</span><span class="ot">,</span> <span class="st">&quot;open&quot;</span><span class="ot">]</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb15-30" title="30">    <span class="dt">&quot;v&quot;</span><span class="fu">:</span> <span class="st">&quot;open:vsplit&quot;</span></a>
-<a class="sourceLine" id="cb15-31" title="31">  <span class="fu">},</span></a>
-<a class="sourceLine" id="cb15-32" title="32"></a>
-<a class="sourceLine" id="cb15-33" title="33">  <span class="dt">&quot;bookmark.sign&quot;</span><span class="fu">:</span> <span class="st">&quot;}&quot;</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb15-34" title="34"></a>
-<a class="sourceLine" id="cb15-35" title="35">  <span class="er">//coc-emoji</span></a>
-<a class="sourceLine" id="cb15-36" title="36">  <span class="dt">&quot;coc.source.emoji.filetypes&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;markdown&quot;</span><span class="ot">]</span><span class="fu">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb19-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb19-2" title="2">  <span class="er">//</span> <span class="er">autoformat</span></a>
+<a class="sourceLine" id="cb19-3" title="3">  <span class="dt">&quot;coc.preferences.formatOnSaveFiletypes&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb19-4" title="4">    <span class="st">&quot;css&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb19-5" title="5">    <span class="st">&quot;markdown&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb19-6" title="6">    <span class="st">&quot;javascript&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb19-7" title="7">    <span class="st">&quot;graphql&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb19-8" title="8">    <span class="st">&quot;html&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb19-9" title="9">    <span class="st">&quot;yaml&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb19-10" title="10">    <span class="st">&quot;json&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb19-11" title="11">    <span class="st">&quot;python&quot;</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb19-12" title="12">    <span class="st">&quot;java&quot;</span></a>
+<a class="sourceLine" id="cb19-13" title="13">  <span class="ot">]</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb19-14" title="14">  <span class="dt">&quot;coc.preferences.hoverTarget&quot;</span><span class="fu">:</span> <span class="st">&quot;float&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb19-15" title="15">  <span class="er">//</span> <span class="er">emmet</span></a>
+<a class="sourceLine" id="cb19-16" title="16">  <span class="dt">&quot;emmet.includeLanguages&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb19-17" title="17">    <span class="dt">&quot;vue-html&quot;</span><span class="fu">:</span> <span class="st">&quot;html&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb19-18" title="18">    <span class="dt">&quot;javascript&quot;</span><span class="fu">:</span> <span class="st">&quot;javascriptreact&quot;</span></a>
+<a class="sourceLine" id="cb19-19" title="19">  <span class="fu">},</span></a>
+<a class="sourceLine" id="cb19-20" title="20"></a>
+<a class="sourceLine" id="cb19-21" title="21">  <span class="er">//</span> <span class="er">explorer</span></a>
+<a class="sourceLine" id="cb19-22" title="22">  <span class="dt">&quot;explorer.width&quot;</span><span class="fu">:</span> <span class="dv">30</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb19-23" title="23">  <span class="dt">&quot;explorer.file.root.template&quot;</span><span class="fu">:</span> <span class="st">&quot;[icon] [git] [hidden &amp; 1][root]&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb19-24" title="24">  <span class="dt">&quot;explorer.icon.enableNerdfont&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb19-25" title="25">  <span class="dt">&quot;explorer.previewAction.onHover&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb19-26" title="26">  <span class="dt">&quot;explorer.icon.enableVimDevicons&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb19-27" title="27">  <span class="dt">&quot;explorer.file.showHiddenFiles&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb19-28" title="28">  <span class="dt">&quot;explorer.keyMappings.global&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb19-29" title="29">    <span class="dt">&quot;&lt;cr&gt;&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;expandable?&quot;</span><span class="ot">,</span> <span class="st">&quot;expand&quot;</span><span class="ot">,</span> <span class="st">&quot;open&quot;</span><span class="ot">]</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb19-30" title="30">    <span class="dt">&quot;v&quot;</span><span class="fu">:</span> <span class="st">&quot;open:vsplit&quot;</span></a>
+<a class="sourceLine" id="cb19-31" title="31">  <span class="fu">},</span></a>
+<a class="sourceLine" id="cb19-32" title="32"></a>
+<a class="sourceLine" id="cb19-33" title="33">  <span class="dt">&quot;bookmark.sign&quot;</span><span class="fu">:</span> <span class="st">&quot;}&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb19-34" title="34"></a>
+<a class="sourceLine" id="cb19-35" title="35">  <span class="er">//coc-emoji</span></a>
+<a class="sourceLine" id="cb19-36" title="36">  <span class="dt">&quot;coc.source.emoji.filetypes&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;markdown&quot;</span><span class="ot">]</span><span class="fu">}</span></a></code></pre></div>
 <p>Restart neovim</p>
 <h3 id="install-your-plugins">Install your plugins</h3>
 <pre><code>:PlugInstall</code></pre>
@@ -272,7 +287,7 @@ set incsearch</code></pre>
 <p>Copy from here -https://github.com/puremourning/vimspector#javascript-typescript-etc<br />
 -https://github.com/puremourning/vimspector#python</p>
 <h3 id="install-screenkey">Install Screenkey</h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb20-1" title="1"><span class="fu">sudo</span> snap install --edge screenkey</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb24-1" title="1"><span class="fu">sudo</span> snap install --edge screenkey</a></code></pre></div>
 <h3 id="make-screenkey-start-on-boot">Make screenkey start on boot</h3>
 <p>Superkey -&gt; type “Startup” open startup applications Add new</p>
 <pre><code>/snap/bin/screenkey -p fixed -g 325x50-5+5 --key-mode composed --bak-mode normal --mods-mode normal --bg-color &#39;#434C5E&#39; --font-color &#39;#A3BE8C&#39; --opacity &#39;0.8&#39;</code></pre>
