@@ -103,9 +103,11 @@ sudo snap install code --classic
 
 
 #### Install VS Code extensions
+TODO: Do we need Prettier extension if ESLint is configured to use prettier?
 - Vim (vscodevim)
 - Bracket Pair Colorizer 2 (CoenraadS)
 - ESLint (Dirk Baemuer)
+- Prettier (Prettier)
 - Nord (arcticstudio)
 - vscode-icons (VSCode Icons Team)
 
@@ -168,7 +170,7 @@ Change comment color to
       "commands": [ "editor.debug.action.conditionalBreakpoint" ]
     },
     {
-      "before": ["<leader>", "d", "c"],
+      "before": ["<leader>", "d", "C"],
       "commands": [ "editor.debug.action.runToCursor" ]
     },
     {
@@ -224,7 +226,27 @@ Change comment color to
     {
         "before": ["<"],
         "after": ["<", "g" ,"v"]
-    }
+    },
+    {
+      "before": ["ctrl+r", "m"],
+      "commands": [ {
+          "command": "editor.action.codeAction",
+          "args": {
+              "kind": "refactor.extract.function"
+          },
+      }]
+    },
+    {
+      "before": ["ctrl+r", "c"],
+      "commands": [ {
+          "command": "editor.action.codeAction",
+          "args": {
+              "kind": "refactor.extract.constant",
+              "preferred": true,
+              "apply": "ifsingle"
+          },
+      }]
+    },
   ]
 }
 ```
@@ -232,36 +254,44 @@ Change comment color to
 #### Configure settings.json
 ```json
 [
-    {
-        "key": "ctrl+r",
-        "command": "extension.vim_ctrl+r",
-        "when": "editorTextFocus && vim.active && vim.use<C-r> && !inDebugRepl"
-    },
-    { 
-        "key": "ctrl+p",
-        "command": "list.focusUp",
-        "when": "listFocus && !inputFocus"
-    },
-    { 
-        "key": "ctrl+n",
-        "command": "list.focusDown",
-        "when": "listFocus && !inputFocus"
-    },
-    {
-        "key": "f",
-        "command": "explorer.newFile",
-        "when": "filesExplorerFocus"
-    },
-    {
-        "key": "v",
-        "command": "fileutils.renameFile",
-        "when": "explorer.newFolder"
-    },
-    {
-        "key": "ctrl+d",
-        "command": "editor.action.addSelectionToNextFindMatch",
-        "when": "editorFocus && vim.active && vim.mode == 'Visual' && !inDebugRepl"
-    }
+  {
+    "editor.formatOnSave": true
+  },
+  {
+      "key": "ctrl+r",
+      "command": "extension.vim_ctrl+r",
+      "when": "editorFocus && vim.active && vim.use<C-r> && !inDebugRepl"
+  },
+  { 
+      "key": "ctrl+p",
+      "command": "list.focusUp",
+      "when": "listFocus && !inputFocus"
+  },
+  { 
+      "key": "ctrl+n",
+      "command": "list.focusDown",
+      "when": "listFocus && !inputFocus"
+  },
+  {
+      "key": "f",
+      "command": "explorer.newFile",
+      "when": "filesExplorerFocus"
+  },
+  {
+      "key": "v",
+      "command": "fileutils.newFolder",
+      "when": "filesExplorerFocus"
+  },
+  {
+      "key": "r",
+      "command": "fileutils.renameFile",
+      "when": "filesExplorerFocus"
+  },
+  {
+      "key": "ctrl+d",
+      "command": "editor.action.addSelectionToNextFindMatch",
+      "when": "editorFocus && vim.active && vim.mode == 'Visual' && !inDebugRepl"
+  }
 ]
 ```
 ### Install Screenkey
@@ -279,3 +309,43 @@ Add new
 ## Install additional development tools
 - Google Chrome
 - Postman
+- Dia
+- MongoDB
+- Postgres
+
+## For each project
+TODO: find out if can use npm instead of npx, -D instead of --dev for eslint-config-airbnb
+```sh
+npm i -D eslinit prettier eslint-plugin-prettier eslint-conig-prettier
+npx install-peerdeps --dev eslint-config-airbnb
+```
+
+### If node
+```sh
+npm i -D eslint-plugin-node eslint-conig-node
+```
+### Prettier
+Create .prettierrc
+```json
+{
+  "singleQuote": true
+}
+```
+
+### ESLint
+Create .eslintrc.json manually OR
+```sh
+eslint --init
+```
+
+.eslintrc.json
+```json
+{
+  "extends": ["airbnb", "prettier", "plugin:node/recommended"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-unused-vars": "warn"
+  } 
+}
+```
