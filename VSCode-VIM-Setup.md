@@ -69,6 +69,8 @@ cd nord-gnome-terminal/src
 ```
 <sup>Copied from `https://www.nordtheme.com` -> Ports -> Gnome Terminal -> GitHub page</sup>
 
+Set default profile to nord, opacity to ~0.3
+
 ### Set Nord as default profile in Gnome Terminal
 
 ### Install Fancy Prompt
@@ -90,6 +92,11 @@ Close and reopen terminal
 ### Install Node LTS
 ```sh
 nvm i --lts
+```
+
+### Install nodemon globaly
+```sh
+npm i -g nodemon
 ```
 
 ### Install VS Code
@@ -142,12 +149,17 @@ Change comment color to
 #### Configure settings.json
 ```json
 {
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.colorTheme": "Nord",
   "terminal.integrated.fontFamily": "Courier, PowerlineSymbols",
   "vim.camelCaseMotion.enable": true,
   "vim.leader": "<space>",
   "vim.replaceWithRegister": true,
   "vim.useSystemClipboard": true,
   "editor.lineNumbers": "relative",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": ["<leader>", "x"],
@@ -217,74 +229,88 @@ Change comment color to
       "before": ["<leader>", "m"],
       "commands": [ "workbench.action.closePanel" ]
     },
+    {
+      "before": [ "d", "i", "l" ],
+      "after": [ "^", "d", "g", "_" ]
+    },
+    {
+      "before": [ "y", "i", "l" ],
+      "after": [ "^", "y", "g", "_" ]
+    },
+    {
+      "before": [ "d", "a", "l" ],
+      "after": [ "-1", "d", "$" ]
+    },
+    {
+      "before": [ "y", "a", "l" ],
+      "after": [ "-1", "y", "$" ]
+    },
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-        "before": [">"],
-        "after": [">", "g", "v"]
+      "before": [">"],
+      "after": [">", "g", "v"]
     },
     {
-        "before": ["<"],
-        "after": ["<", "g" ,"v"]
+      "before": ["<"],
+      "after": ["<", "g" ,"v"]
     },
     {
       "before": ["ctrl+r", "m"],
       "commands": [ {
-          "command": "editor.action.codeAction",
-          "args": {
-              "kind": "refactor.extract.function"
-          },
+        "command": "editor.action.codeAction",
+        "args": {
+          "kind": "refactor.extract.function"
+        },
       }]
     },
     {
       "before": ["ctrl+r", "c"],
       "commands": [ {
-          "command": "editor.action.codeAction",
-          "args": {
-              "kind": "refactor.extract.constant",
-              "preferred": true,
-              "apply": "ifsingle"
-          },
+        "command": "editor.action.codeAction",
+        "args": {
+          "kind": "refactor.extract.constant",
+          "preferred": true,
+          "apply": "ifsingle"
+        },
       }]
     },
-  ]
+    {
+      "before": ["ctrl+r", "g"],
+      "commands": [ {
+        "command": "editor.action.codeAction",
+        "args": {
+          "kind": "refactor.extract.constant",
+          "preferred": false,
+          "apply": "ifsingle"
+        },
+      }]
+    },
+  ],
 }
 ```
 
-#### Configure settings.json
+#### Configure keybindings.json
 ```json
 [
-  {
-    "editor.formatOnSave": true
-  },
   {
       "key": "ctrl+r",
       "command": "extension.vim_ctrl+r",
       "when": "editorFocus && vim.active && vim.use<C-r> && !inDebugRepl"
   },
-  { 
-      "key": "ctrl+p",
-      "command": "list.focusUp",
-      "when": "listFocus && !inputFocus"
-  },
-  { 
-      "key": "ctrl+n",
-      "command": "list.focusDown",
-      "when": "listFocus && !inputFocus"
-  },
   {
-      "key": "f",
+      "key": "ctrl+f",
       "command": "explorer.newFile",
       "when": "filesExplorerFocus"
   },
   {
-      "key": "v",
-      "command": "fileutils.newFolder",
+      "key": "ctrl+v",
+      "command": "explorer.newFolder",
       "when": "filesExplorerFocus"
   },
   {
-      "key": "r",
-      "command": "fileutils.renameFile",
+      "key": "ctrl+r",
+      "command": "renameFile",
       "when": "filesExplorerFocus"
   },
   {
@@ -316,14 +342,15 @@ Add new
 ## For each project
 TODO: find out if can use npm instead of npx, -D instead of --dev for eslint-config-airbnb
 ```sh
-npm i -D eslinit prettier eslint-plugin-prettier eslint-conig-prettier
+npm i -D eslint prettier eslint-plugin-prettier eslint-config-prettier
 npx install-peerdeps --dev eslint-config-airbnb
 ```
 
 ### If node
 ```sh
-npm i -D eslint-plugin-node eslint-conig-node
+npm i -D eslint-plugin-node eslint-config-node
 ```
+
 ### Prettier
 Create .prettierrc
 ```json
@@ -349,3 +376,122 @@ eslint --init
   } 
 }
 ```
+
+### Configure debugger
+
+Choose: Run->Add Configuration->NodeJS
+```json
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    { //these first 4 lines probably already there.
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/server.js", //or app.js or whatever
+      "restart": true,
+      "runtimeExecutable": "nodemon",
+      "console": "integratedTerminal",
+      //what does this do? I added it but seems unnecessary
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+    }
+  ]
+}
+```
+
+Make sure nodemon is installed globally if you do this.
+
+## Install and configure PostgreSQL
+
+### Install PostgreSQL
+```sh
+sudo apt install postgresql postgresql-contrib
+```
+
+### Switch to postgres user
+```sh
+sudo -i -u postgres
+```
+
+### Create user dev
+Choose y as super user
+The Postgres authentication system makes the sassumption that by default that for any role used to log in, that role will have a database with the same name which it can access so also create db for said user
+```sh
+createuser --interactive --pwprompt dev
+createdb sammy
+```
+### Exit back to your dev user
+```sh
+exit
+```
+
+### Create user app
+Choose n as super user
+The Postgres authentication system makes the sassumption that by default that for any role used to log in, that role will have a database with the same name which it can access so also create db for said user
+```sh
+createuser --interactive --pwprompt app
+createdb app
+```
+
+### Create db for your project
+```sh
+createdb project_name
+```
+
+### Login to database as app user
+```sh
+psql -U app -h localhost project_name
+```
+
+### Confirm you're using the right database
+```sql
+SELECT current_database();
+```
+
+### create a test table
+```sql
+CREATE TABLE test (
+  id SERIAL,
+  val1 VARCHAR(20),
+  val2 VARCHAR(20)
+);
+```
+### Insert some dummy data for testing
+```sql
+INSERT INTO test VALUES(default, 'Hi', 'There');
+```
+
+## Create quick test app
+Create project folder with app.js
+```sh
+npm init
+npm i pg
+```
+Create your javascript file
+```javascript
+const { Client } = require('pg');
+
+const connectionString = 'postgresql://app:123456@localhost:5432/project_name'
+
+const client = new Client({
+  connectionString,
+});
+
+(async () => { 
+  try {
+    await client.connect();
+    const res = await client.query('SELECT * FROM test');
+    console.log(res.rows[0]);
+    await client.end();
+  } catch (err) {
+    console.error(err);
+  }
+})();
+```
+
+Does it work? Success!
