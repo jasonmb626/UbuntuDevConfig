@@ -1,6 +1,6 @@
 # Setting up my Ubuntu development machine
 
-From a fresh Ubuntu 20.04 installation, updated and guest additions installed (if in virtualbox).
+From a fresh Ubuntu 20.04 installation, updated and guest additions installed (if in VirtualBox).
 
 ## Install your ssh keys
 
@@ -11,6 +11,7 @@ unzip ssh_keys.zip
 (Enter password)
 ```sh
 rm ssh_keys.zip
+ls -l
 ```
 You should now have these files and permissions in that folder.
 ```
@@ -19,7 +20,7 @@ You should now have these files and permissions in that folder.
 -rw-r--r-- 1 dev dev 2.2K xxxx-xx-xx 02-07 16:28 known_hosts
 ```
 
-(might not have known_hosts)
+(you might not have known_hosts)
 
 ## Desktop Appearance
 
@@ -43,12 +44,13 @@ sudo apt install chrome-gnome-shell gnome-tweaks
 ### Enable user themes
 
 Install from the [User Themes](https://extensions.gnome.org/extension/19/user-themes/) extension page
+You'll need to install the browser plugin (it'll prompt you) and then refresh the page
 
 ## Download your preferred theme
 
 [Nordic GTK3 theme](https://www.gnome-look.org/p/1267246/)
 - Download Nordic-bluish-accent.tar.xz, unzip contents to ~/.themes
-- Download Nordic-Folders.tar.xz, unzip its "nordic folder" to ~/.icons (you can ignore the noric-dark folder)
+- Download Nordic-Folders.tar.xz, unzip its "nordic" folder to ~/.icons (you can ignore the noric-dark folder)
 
 ### Set the themes
 
@@ -69,9 +71,9 @@ cd nord-gnome-terminal/src
 ```
 <sup>Copied from `https://www.nordtheme.com` -> Ports -> Gnome Terminal -> GitHub page</sup>
 
-Set default profile to nord, opacity to ~0.3
-
 ### Set Nord as default profile in Gnome Terminal
+
+Set default profile to nord, opacity to ~0.3
 
 ### Install Fancy Prompt
 ```sh
@@ -105,9 +107,6 @@ sudo snap install code --classic
 ```
 
 ### Configure VS Code
-
-### Set terminal fonts
-
 
 #### Install VS Code extensions
 TODO: Do we need Prettier extension if ESLint is configured to use prettier?
@@ -294,11 +293,6 @@ Change comment color to
 ```json
 [
   {
-      "key": "ctrl+r",
-      "command": "extension.vim_ctrl+r",
-      "when": "editorFocus && vim.active && vim.use<C-r> && !inDebugRepl"
-  },
-  {
       "key": "ctrl+f",
       "command": "explorer.newFile",
       "when": "filesExplorerFocus"
@@ -332,12 +326,123 @@ Add new
 /snap/bin/screenkey -p fixed -g 325x50-5+5 --key-mode composed --bak-mode normal --mods-mode normal --bg-color '#434C5E' --font-color '#A3BE8C' --opacity '0.8'
 ```
 
+## Install and configure PostgreSQL
+
+### Install PostgreSQL
+```sh
+sudo apt install postgresql postgresql-contrib
+```
+
+### Switch to postgres user
+```sh
+sudo -i -u postgres
+```
+
+### Create user dev
+Choose y as super user
+The Postgres authentication system makes the sassumption that by default that for any role used to log in, that role will have a database with the same name which it can access so also create db for said user
+```sh
+createuser --interactive --pwprompt dev
+createdb sammy
+```
+### Exit back to your dev user
+```sh
+exit
+```
+
+### Create user app
+Choose n as super user
+The Postgres authentication system makes the sassumption that by default that for any role used to log in, that role will have a database with the same name which it can access so also create db for said user
+```sh
+createuser --interactive --pwprompt app
+createdb app
+```
+
+### Create db for your project
+```sh
+createdb project_name
+```
+
+### Login to database as app user
+```sh
+psql -U app -h localhost project_name
+```
+
+### Confirm you're using the right database
+```sql
+SELECT current_database();
+```
+
+### create a test table
+```sql
+CREATE TABLE test (
+  id SERIAL,
+  val1 VARCHAR(20),
+  val2 VARCHAR(20)
+);
+```
+### Insert some dummy data for testing
+```sql
+INSERT INTO test VALUES(default, 'Hi', 'There');
+```
+
+### Set your environment variables
+```sh
+cd
+vi .bashrc
+```
+
+Add
+```
+export PGUSER='app'
+export PGPASSWORD='123456'
+export PGDATABASE='project_name'
+```
+Log out and log back in
+
+## Create quick test app
+Create project folder with app.js
+```sh
+npm init
+npm i pg
+```
+Create your javascript file
+```javascript
+const { Pool } = require('pg');
+
+// If you've set environment variables this is not needed
+// const connectionString = 'postgresql://app:123456@localhost:5432/project_name'
+
+const pool = new Pool({
+  // If you've set environment variables this is not needed
+  // connectionString,
+});
+
+(async () => { 
+  const client = await pool.connect();
+  try {
+    let res = await client.query('SELECT * FROM test');
+    console.log(res.rows[0]);
+    res = await client.query(
+      "INSERT INTO test VALUES (default, $1, $2) RETURNING id",
+      ['Hi', 'Back']
+    );
+    console.log(res.rows[0]);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    client.release();
+  }
+})().finally(() => pool.end());;
+```
+
+Does it work? Success!
+
 ## Install additional development tools
 - Google Chrome
 - Postman
 - Dia
 - MongoDB
-- Postgres
 
 ## For each project
 TODO: find out if can use npm instead of npx, -D instead of --dev for eslint-config-airbnb
@@ -403,95 +508,4 @@ Choose: Run->Add Configuration->NodeJS
   ]
 }
 ```
-
 Make sure nodemon is installed globally if you do this.
-
-## Install and configure PostgreSQL
-
-### Install PostgreSQL
-```sh
-sudo apt install postgresql postgresql-contrib
-```
-
-### Switch to postgres user
-```sh
-sudo -i -u postgres
-```
-
-### Create user dev
-Choose y as super user
-The Postgres authentication system makes the sassumption that by default that for any role used to log in, that role will have a database with the same name which it can access so also create db for said user
-```sh
-createuser --interactive --pwprompt dev
-createdb sammy
-```
-### Exit back to your dev user
-```sh
-exit
-```
-
-### Create user app
-Choose n as super user
-The Postgres authentication system makes the sassumption that by default that for any role used to log in, that role will have a database with the same name which it can access so also create db for said user
-```sh
-createuser --interactive --pwprompt app
-createdb app
-```
-
-### Create db for your project
-```sh
-createdb project_name
-```
-
-### Login to database as app user
-```sh
-psql -U app -h localhost project_name
-```
-
-### Confirm you're using the right database
-```sql
-SELECT current_database();
-```
-
-### create a test table
-```sql
-CREATE TABLE test (
-  id SERIAL,
-  val1 VARCHAR(20),
-  val2 VARCHAR(20)
-);
-```
-### Insert some dummy data for testing
-```sql
-INSERT INTO test VALUES(default, 'Hi', 'There');
-```
-
-## Create quick test app
-Create project folder with app.js
-```sh
-npm init
-npm i pg
-```
-Create your javascript file
-```javascript
-const { Client } = require('pg');
-
-const connectionString = 'postgresql://app:123456@localhost:5432/project_name'
-
-const client = new Client({
-  connectionString,
-});
-
-(async () => { 
-  try {
-    await client.connect();
-    const res = await client.query('SELECT * FROM test');
-    console.log(res.rows[0]);
-    await client.end();
-  } catch (err) {
-    console.error(err);
-  }
-})();
-```
-
-Does it work? Success!
