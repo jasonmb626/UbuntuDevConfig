@@ -322,12 +322,12 @@ Change comment color to
   },
   {
     "key": "ctrl+p",
-    "command": "showPrevParamaterHint",
+    "command": "showPrevParameterHint",
     "when": "editorFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
   },
   {
     "key": "ctrl+n",
-    "command": "showNextParamaterHint",
+    "command": "showNextParameterHint",
     "when": "editorFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
   }
 ]
