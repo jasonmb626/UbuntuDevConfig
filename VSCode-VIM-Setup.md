@@ -452,7 +452,7 @@ const pool = new Pool({
     let res = await client.query('SELECT * FROM test');
     console.log(res.rows[0]);
     res = await client.query(
-      "INSERT INTO test VALUES (default, $1, $2) RETURNING *", //or RETURNING id
+      'INSERT INTO test VALUES (default, $1, $2) RETURNING *', //or RETURNING id
       ['Hi', 'Back']
     );
     console.log(res.rows[0]);
