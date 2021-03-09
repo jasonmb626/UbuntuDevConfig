@@ -155,6 +155,14 @@ Change comment color to
   "vim.leader": "<space>",
   "vim.replaceWithRegister": true,
   "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.handleKeys": {
+    "<C-v>": false,
+    "<C-s>": false,
+    "<C-a>": false,
+    "<C-c>": false,
+    "<C-p>": false,
+  },
   "editor.lineNumbers": "relative",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
@@ -293,24 +301,34 @@ Change comment color to
 ```json
 [
   {
-      "key": "ctrl+f",
+      "key": "ctrl+l",
       "command": "explorer.newFile",
       "when": "filesExplorerFocus"
   },
   {
-      "key": "ctrl+v",
+      "key": "ctrl+;",
       "command": "explorer.newFolder",
       "when": "filesExplorerFocus"
   },
   {
-      "key": "ctrl+r",
-      "command": "renameFile",
-      "when": "filesExplorerFocus"
+    "key": "ctrl+p",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
   },
   {
-      "key": "ctrl+d",
-      "command": "editor.action.addSelectionToNextFindMatch",
-      "when": "editorFocus && vim.active && vim.mode == 'Visual' && !inDebugRepl"
+    "key": "ctrl+n",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "showPrevParamaterHint",
+    "when": "editorFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "showNextParamaterHint",
+    "when": "editorFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
   }
 ]
 ```
@@ -340,10 +358,10 @@ sudo -i -u postgres
 
 ### Create user dev
 Choose y as super user
-The Postgres authentication system makes the sassumption that by default that for any role used to log in, that role will have a database with the same name which it can access so also create db for said user
+The Postgres authentication system makes the assumption that by default for any role used to log in, that role will have a database with the same name which it can access so also create db for said user
 ```sh
 createuser --interactive --pwprompt dev
-createdb sammy
+createdb dev
 ```
 ### Exit back to your dev user
 ```sh
@@ -352,7 +370,6 @@ exit
 
 ### Create user app
 Choose n as super user
-The Postgres authentication system makes the sassumption that by default that for any role used to log in, that role will have a database with the same name which it can access so also create db for said user
 ```sh
 createuser --interactive --pwprompt app
 createdb app
