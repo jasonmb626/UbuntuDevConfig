@@ -332,6 +332,17 @@ Change comment color to
   }
 ]
 ```
+
+#### Configure user snippets
+File -> Preferences -> User Snippets -> JavaScript
+```json
+	"Destructure Require": {
+		"prefix": ["dreq"],
+		"body": ["const { $2 } = require('$1');"],
+		"description": "Destructured Require"
+	}
+```
+
 ### Install Screenkey
 ```sh
 sudo snap install --edge screenkey
