@@ -4,52 +4,16 @@ Download and set walpaper
 https://unsplash.com/photos/v7daTKlZzaw
 Photo by <a href="https://unsplash.com/@danielleone?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Daniel Leone</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   
-## Window Management
-System Settings -> Window Management -> 
-### Set Window Placement Center
-Window Behavior -> Advanced
-Window Placement = Centered
-
-### KWin Scripts
-KWin Scripts -> Get New Scripts
-* Force Blur
-* Latte Window Colors
-* Active Window Control
-
-## Set Workspace Behaviors
-System Settings -> Workspace Behavior ->
-
-### Desktop Effects
-[x] Blur
-* Light = 11
-* Noise = 0
-[x] Sheet
-[x] Wobbly Windows
-[x] Magic Lamp
-* Focus
-[x] Dialog Parent
-[x] Slide Back
-*Virtual Desktop Switching Animation
-[x] Slide
-*Window Open/Close Animation
-[x] Scale
-
-### Set Screen Edges
-Keep only upper left
-
-### Virtual Desktops
-1 Row
-4 Desktops
-
 ## Appearance
 
 Download Themes
 ```sh
-sudo pacman -S kvantum-qt5 make
-git clone https://github.com/vinceliuice/Qiogr-theme.git
+sudo pacman -S kvantum-qt5 make latte-dock
+git clone https://github.com/vinceliuice/Qogir-theme.git
 git clone https://github.com/vinceliuice/Tela-circle-icon-theme.git
-Qiogr-theme/install.sh
+Qogir-theme/install.sh
 Tela-circle-icon-theme/install.sh
+rm -fr Qogir-theme Tela-circle-icon-theme
 ```
 
 Download Font
@@ -88,8 +52,44 @@ https://store.kde.org/p/1367055/
 
 Install/Set Theme
 
+## Set Workspace Behaviors
+System Settings -> Workspace Behavior ->
+
+### Desktop Effects
+[x] Blur
+* Light = 9
+* Noise = 0
+[x] Sheet
+[x] Wobbly Windows
+[x] Magic Lamp
+* Focus
+[x] Dialog Parent
+[x] Slide Back
+* Virtual Desktop Switching Animation
+[x] Slide
+* Window Open/Close Animation
+[x] Scale
+
+### Set Screen Edges
+Keep only upper left
+
+### Virtual Desktops
+1 Row
+4 Desktops
+
+## Window Management
+System Settings -> Window Management -> 
+### Set Window Placement Center
+Window Behavior -> Advanced
+Window Placement = Centered
+
+### KWin Scripts
+KWin Scripts -> Get New Scripts
+* Force Blur By esjeon
+* Latte Window Colors By Psifidotos
+
 ## Dock
-Right Click bottom panel -> Add New Widgets -> Get New Widgets -> Download New Plasma Widgets
+Right Click Desktop -> Add New Widgets -> Get New Widgets -> Download New Plasma Widgets
 * Latte SideBar Button By Psifidotos
 * Latte Separator By Psifidotos
 * Latte Spacer By Psifidotos
@@ -113,7 +113,7 @@ Copy to ~/.config/latte
 
 Start Latte Dock with Edna theme
 ```sh
-latte-dock --layouts Edna
+latte-dock --layout Edna
 ```
 
 Remove default panel
