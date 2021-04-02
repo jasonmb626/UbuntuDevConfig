@@ -8,7 +8,7 @@ Photo by <a href="https://unsplash.com/@danielleone?utm_source=unsplash&utm_medi
 
 Download Themes
 ```sh
-sudo pacman -S kvantum-qt5 make latte-dock
+sudo pacman -S kvantum-qt5 make
 git clone https://github.com/vinceliuice/Qogir-theme.git
 git clone https://github.com/vinceliuice/Tela-circle-icon-theme.git
 Qogir-theme/install.sh
@@ -16,6 +16,11 @@ Tela-circle-icon-theme/install.sh
 rm -fr Qogir-theme Tela-circle-icon-theme
 ```
 
+### Set KVantum theme
+Download theme
+https://store.kde.org/p/1367055/
+
+Install/Set Theme
 Download Font
 https://fonts.google.com/specimen/Roboto
 Download family
@@ -46,12 +51,6 @@ Tela circle dark
 Get New Cursors
 McMojave Curors
 
-### Set KVantum theme
-Download theme
-https://store.kde.org/p/1367055/
-
-Install/Set Theme
-
 ## Set Workspace Behaviors
 System Settings -> Workspace Behavior ->
 
@@ -59,14 +58,18 @@ System Settings -> Workspace Behavior ->
 [x] Blur
 * Light = 9
 * Noise = 0
+
 [x] Sheet
 [x] Wobbly Windows
 [x] Magic Lamp
+
 * Focus
 [x] Dialog Parent
 [x] Slide Back
+
 * Virtual Desktop Switching Animation
 [x] Slide
+
 * Window Open/Close Animation
 [x] Scale
 
@@ -93,6 +96,7 @@ Right Click Desktop -> Add New Widgets -> Get New Widgets -> Download New Plasma
 * Latte SideBar Button By Psifidotos
 * Latte Separator By Psifidotos
 * Latte Spacer By Psifidotos
+* Virtual Desktop Bar By wsdfhjxc
 * Active Window Control By clearmartin
 * Better inline clock By marianarlt
 * Simple Menu By Sho
@@ -102,6 +106,8 @@ Install virtual-desktop-bar from github
 git clone https://github.com/wsdfhjxc/virtual-desktop-bar.git
 virtual-desktop-bar/scripts/install-dependencies-arch.sh
 virtual-desktop-bar/scripts/install-applet.sh
+rm -fr virtual-desktop-bar
+pamac build latte-dock-git
 ```
 
 Download Edna Latte layout
@@ -113,6 +119,8 @@ Copy to ~/.config/latte
 
 Start Latte Dock with Edna theme
 ```sh
+mkdir -p ~/.config/latte
+mv Edna.layout.latte ~/.config/latte
 latte-dock --layout Edna
 ```
 
@@ -153,7 +161,10 @@ Configure Better Inline Clock
 Configure Virtual Desktop Bar
 * Appearance -> Style = Number
 
+## Set Login/Lock Screen
 
+## Set Konsole Theme
+Edna
 
 
 
