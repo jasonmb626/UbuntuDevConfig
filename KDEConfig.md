@@ -90,7 +90,8 @@ Window Placement = Centered
 KWin Scripts -> Get New Scripts
 * Force Blur By esjeon
 * Latte Window Colors By Psifidotos
-
+* Krohnkite By esjeon
+ 
 ## Dock
 Right Click Desktop -> Add New Widgets -> Get New Widgets -> Download New Plasma Widgets
 * Latte SideBar Button By Psifidotos
@@ -101,13 +102,18 @@ Right Click Desktop -> Add New Widgets -> Get New Widgets -> Download New Plasma
 * Better inline clock By marianarlt
 * Simple Menu By Sho
 
-Install virtual-desktop-bar from github
+Install virtual-desktop-bar (KDE's built-in pager is ugly and limited in customization) from github
 ```sh
 git clone https://github.com/wsdfhjxc/virtual-desktop-bar.git
 virtual-desktop-bar/scripts/install-dependencies-arch.sh
 virtual-desktop-bar/scripts/install-applet.sh
 rm -fr virtual-desktop-bar
-pamac build latte-dock-git
+```
+
+Install latte-dock
+```sh
+sudo pacman -S latte-doc (currently this version does not allow floating top panel but might in the future)
+sudo pamac build latte-dock-git (install this one instead, until above works)
 ```
 
 Download Edna Latte layout
