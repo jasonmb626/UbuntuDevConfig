@@ -81,6 +81,8 @@ Open tweaks -> Appearance -> set shell, applications to Nordic-bluish-accent, se
 
 ### Install Alacritty & zsh
 
+util-linux-user provides chsh command
+
 ```sh
 sudo dnf install alacritty zsh util-linux-user
 chsh
@@ -93,6 +95,12 @@ set to /usr/bin/zsh
 #### Install Theme
 
 Follow directions on their [GitHub page](https://github.com/arcticicestudio/nord-alacritty)
+
+Also set background opacity
+
+```
+background_opacity: 0.8
+```
 
 #### Modify entry in .desktop
 
@@ -121,8 +129,15 @@ This is a good time to reboot so all the changes get sourced properly.
 ### Install and Configure Powerline 10k
 
 Steal some of the zsh powerlevel10k stuff from Manjaro
+Download the tarball I'm hosting on GitHub [here](https://github.com/jasonmb626/LinuxDev/raw/main/zsh.tar.xz)
 
-Install the meslo fonts recommended for Powerline 10k
+Unzip it to ~/.local/share
+```sh
+cd ~/Downloads
+tar xvfz zsh.tar.xz ~/.local/share
+```
+
+Install the 4 meslo fonts recommended for Powerline 10k
 Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
 
 ```sh
@@ -131,6 +146,39 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 ```
 
 (To do: which options?)
+
+### Set your .zshrc
+
+Place this in your home folder
+
+```
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Use powerline
+USE_POWERLINE="true"
+
+# Source manjaro-zsh-configuration
+if [[ -e ~/.local/share/zsh/manjaro-zsh-config ]]; then
+  source ~/.local/share/zsh/manjaro-zsh-config
+fi
+# Use manjaro zsh prompt
+if [[ -e ~/.local/share/zsh/manjaro-zsh-prompt ]]; then
+  source ~/.local/share/zsh/manjaro-zsh-prompt
+fi
+
+# Created by newuser for 5.8
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+```
+
+Exit terminal and reopen
 
 ### Install [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
 
@@ -150,6 +198,12 @@ nvm i --lts
 ```sh
 npm i -g nodemon
 ```
+
+### Download and install the JetBrains Mono font
+
+Available on their [website](https://www.jetbrains.com/lp/mono/)
+
+Direct download [link](https://download.jetbrains.com/fonts/JetBrainsMono-2.225.zip?_gl=1*xpo28q*_ga*MTc5NjcwNTg5MS4xNjIyOTAyMDA4*_ga_V0XZL7QHEB*MTYyMjkwMjAwNy4xLjAuMTYyMjkwMjAwNy4w&_ga=2.122909122.871394511.1622902008-1796705891.1622902008).
 
 ### Install [VS Code](https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions)
 
@@ -181,7 +235,8 @@ TODO: Do we need Prettier extension if ESLint is configured to use prettier?
 {
   "workbench.iconTheme": "vscode-icons",
   "workbench.colorTheme": "Nord",
-  "terminal.integrated.fontFamily": "Courier, PowerlineSymbols",
+  "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "terminal.integrated.fontFamily": "Courier, 'MesloLGS NF'",
   "vim.camelCaseMotion.enable": true,
   "vim.leader": "<space>",
   "vim.replaceWithRegister": true,
@@ -404,6 +459,8 @@ screenkey -p fixed -g 325x50-5+5 --key-mode composed --bak-mode normal --mods-mo
 
 ```sh
 sudo dnf install emby-engine
+sudo usermod -aG docker jason
+sudo systemctl enable docker
 ```
 
 ### create a test table
