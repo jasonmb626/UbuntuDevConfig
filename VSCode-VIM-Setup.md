@@ -120,6 +120,8 @@ This is a good time to reboot so all the changes get sourced properly.
 
 ### Install and Configure Powerline 10k
 
+Steal some of the zsh powerlevel10k stuff from Manjaro
+
 Install the meslo fonts recommended for Powerline 10k
 Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
 
@@ -386,6 +388,7 @@ File -> Preferences -> User Snippets -> JavaScript
 ```sh
 sudo dnf install screenkey
 ```
+
 Note: as of the time of this writing screenkey doesn't work on Wayland.
 
 ### (optional) Make screenkey start on boot
@@ -398,6 +401,7 @@ screenkey -p fixed -g 325x50-5+5 --key-mode composed --bak-mode normal --mods-mo
 ```
 
 ### Install Docker
+
 ```sh
 sudo dnf install emby-engine
 ```
