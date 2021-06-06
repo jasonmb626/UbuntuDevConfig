@@ -67,6 +67,8 @@ You'll need to install the browser plugin (it'll prompt you) and then refresh th
 
 #### Enable [Clipboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/)
 
+#### Enable [Workspaces Bar](https://extensions.gnome.org/extension/3851/workspaces-bar/)
+
 ## Download your preferred theme
 
 [Nordic GTK3 theme](https://www.gnome-look.org/p/1267246/)
@@ -463,6 +465,27 @@ sudo usermod -aG docker jason
 sudo systemctl enable docker
 ```
 
+### Mysql via docker
+
+```yaml
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+```
 ### create a test table
 
 ```sql
