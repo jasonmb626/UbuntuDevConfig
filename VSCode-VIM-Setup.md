@@ -2,6 +2,32 @@
 
 From a fresh Fedora 34 installation, updated.
 
+## Change SELinux to permissive
+
+```sh
+sudo vi /etc/selinux/config
+```
+
+Change this line:
+
+```
+SELINUX=enforcing
+```
+
+to
+
+```
+SELINUX=permissive
+```
+
+Changes will not take place until a reboot, but a reboot is upcoming anyway.
+
+If you wish to enforce immediately
+
+```sh
+sudo setenforce 0
+```
+
 ## Install your ssh keys
 
 Copy your github-ssh_keys.zip to ~/.ssh
@@ -51,6 +77,8 @@ Change the look and feel to your prefrences.
 
 Download your [wallpaper](https://wallpaperaccess.com/download/blue-lagoon-3908317) and set it as your desktop wallpaper
 
+(Recommend placing it in ~/.local/share/walpapers)
+
 ### Install dependencies for extending Gnome functionality
 
 ```sh
@@ -81,17 +109,26 @@ You'll need to install the browser plugin (it'll prompt you) and then refresh th
 Open tweaks -> Appearance -> set shell, applications to Nordic-bluish-accent, set icons to Nordic
 -> Window Titlebars -> Placement = Left
 
-### Install Alacritty & zsh
+### Set the workspaces
+
+Set 6 static workspaces
+
+### Install Alacritty & zsh, & docker while we're at it
 
 util-linux-user provides chsh command
 
 ```sh
-sudo dnf install alacritty zsh util-linux-user
+sudo dnf install alacritty zsh util-linux-user vim moby-engine
 chsh
 ```
 
 set to /usr/bin/zsh
 
+```sh
+sudo usermomd -aG docker jason
+sudo systemctl start docker
+sudo systemctl enable docker
+```
 ### Setup Alacritty
 
 #### Install Theme
@@ -134,9 +171,12 @@ Steal some of the zsh powerlevel10k stuff from Manjaro
 Download the tarball I'm hosting on GitHub [here](https://github.com/jasonmb626/LinuxDev/raw/main/zsh.tar.xz)
 
 Unzip it to ~/.local/share
+
+(You won't have a .zshrc file yet, so just choose option "0" to create an empty one if prompted.)
+
 ```sh
 cd ~/Downloads
-tar xvfz zsh.tar.xz ~/.local/share
+tar xvf zsh.tar.xz -C ~/.local/share
 ```
 
 Install the 4 meslo fonts recommended for Powerline 10k
@@ -147,11 +187,31 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 ```
 
-(To do: which options?)
+Restart terminal and Powerlevel10k will prompt you for options.
 
-### Set your .zshrc
+My options:
+Diamond -> y
+Lock -> y
+Debian -> y
+Do they fit -> y
+Prompt Style -> 3 (Rainbow)
+Character Set -> 1 (Unicode)
+Show current time? -> 2 (24-hour format.)
+Prompt Separators -> 1 (Angled)
+Prompt Heads -> 1 (Sharp)
+Prompt Tails -> 1 (Flat)
+Prompt Height -> 2 (Two lines)
+Prompt Connection -> 3 (Solid)
+Prompt Frame -> 4 (Full)
+Connection & Frame Color -> 1 (Lightest)
+Prompt Spacing -> 2 (Sparse)
+Icons -> 2 (Many icons)
+Prompt Flow -> 2 (Fluent)
+Enable Transient Prompt? -> y (Yes)
+Instant Prompt Mode -> 1 (Verbose)
+Apply changes to ~/.zshrc? -> y (Yes)
 
-Place this in your home folder
+### Edit your .zshrc
 
 ```
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -228,8 +288,41 @@ TODO: Do we need Prettier extension if ESLint is configured to use prettier?
 - Bracket Pair Colorizer 2 (CoenraadS)
 - ESLint (Dirk Baemuer)
 - Prettier (Prettier)
-- mci_marina_nord (armoredelephant.theme)
+- Nord (arcticstudio)
 - vscode-icons (VSCode Icons Team)
+- Docker (Microsoft)
+- Deno
+- advanced-new-file (patbenatar)
+- File Utils (Steffen Leistner)
+- Thunder Client (Ranga Vadhineni)
+
+### Replace Nord comment color
+Open ~/.vscode/extensions/arcticicestudio.nord-visual-studio-code-0.15.1/themes/nord-color-theme.json 
+
+Change comment color to 
+```json
+{
+  "name": "Comment",
+  "scope": "comment",
+  "settings": {
+    "foreground": "#B48EAD"
+  }
+},
+```
+
+```json
+{
+  "name": "Punctuation Definition Comment",
+  "scope": [
+    "punctuation.definition.comment",
+    "punctuation.end.definition.comment",
+    "punctuation.start.definition.comment"
+  ],
+  "settings": {
+    "foreground": "#B48EAD"
+  }
+},
+```
 
 #### Configure settings.json
 
@@ -469,10 +562,9 @@ sudo systemctl enable docker
 
 ```yaml
 # Use root/example as user/password credentials
-version: '3.1'
+version: "3.1"
 
 services:
-
   db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
@@ -486,6 +578,7 @@ services:
     ports:
       - 8080:8080
 ```
+
 ### create a test table
 
 ```sql
