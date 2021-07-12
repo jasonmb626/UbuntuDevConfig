@@ -558,25 +558,32 @@ sudo usermod -aG docker jason
 sudo systemctl enable docker
 ```
 
-### Mysql via docker
+### Postgres via docker
 
 ```yaml
-# Use root/example as user/password credentials
-version: "3.1"
+version: '3.8'
 
 services:
+
   db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
+    image: postgres
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
-
-  adminer:
-    image: adminer
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - projectdb:/var/lib/postgresql/data
+    stdin_open: true
+    tty: true
+  pgadmin:
+    image: dpage/pgadmin4
     restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: jason@jasonbrunelle.com
+      PGADMIN_DEFAULT_PASSWORD: example
     ports:
-      - 8080:8080
+      - 8080:80
+volumes:
+  projectdb:
 ```
 
 ### create a test table
