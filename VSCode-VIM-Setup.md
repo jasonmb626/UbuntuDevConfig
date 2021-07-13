@@ -568,6 +568,8 @@ services:
       - ../db:/var/lib/postgresql/data
     stdin_open: true
     tty: true
+    ports:
+      - 5432:5432
   pgadmin:
     image: dpage/pgadmin4
     restart: always
@@ -626,13 +628,13 @@ INSERT INTO test VALUES(default, 'Hi', 'There');
 ```
 
 ### Set your environment variables
-
+TODO: how to set for local user only? Not SHELL variables but proper user environment variables
+putting these in ~/.pam_environment works in Ubuntu (and ARCH)
 ```sh
-cd
-vi ~/.pam_environment
+sudo nvim /etc/profile
 ```
 
-Add
+Add to the bottom
 
 ```
 PGUSER=app
