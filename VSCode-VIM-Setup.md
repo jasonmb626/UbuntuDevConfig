@@ -187,6 +187,12 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 ```
 
+### Install [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
+
+```sh
+git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
+```
+
 Restart terminal and Powerlevel10k will prompt you for options.
 
 My options:
@@ -238,16 +244,12 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#zsh-nvm
+[[ ! -f ~/.zsh-nvm/zsh-nvm.plugin.zsh ]] || source ~/.zsh-nvm/zsh-nvm.plugin.zsh
 ```
 
 Exit terminal and reopen
-
-### Install [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
-
-```sh
-git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
-source ~/.zsh-nvm/zsh-nvm.plugin.zsh
-```
 
 ### Install Node LTS
 
@@ -550,14 +552,6 @@ Add new
 screenkey -p fixed -g 325x50-5+5 --key-mode composed --bak-mode normal --mods-mode normal --bg-color '#434C5E' --font-color '#A3BE8C' --opacity '0.8'
 ```
 
-### Install Docker
-
-```sh
-sudo dnf install emby-engine
-sudo usermod -aG docker jason
-sudo systemctl enable docker
-```
-
 ### Postgres via docker
 
 ```yaml
@@ -571,7 +565,7 @@ services:
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
-      - projectdb:/var/lib/postgresql/data
+      - ../db:/var/lib/postgresql/data
     stdin_open: true
     tty: true
   pgadmin:
@@ -582,8 +576,37 @@ services:
       PGADMIN_DEFAULT_PASSWORD: example
     ports:
       - 8080:80
-volumes:
-  projectdb:
+```
+Start the containers (--build makes sure it rebuilds the containers if anything changed)
+
+```sh
+docker-compose up --build
+```
+
+if you need to access the db container
+
+```sh
+docker exec -it docker_db_1 /bin/bash
+```
+
+Or if you just need psql
+
+```sh
+docker exec -it docker_db_1 /usr/bin/psql -U postgres
+```
+
+Create and connect to database
+```sql
+  CREATE DATABASE project_name;
+  \c project_name;
+```
+
+
+Create a role
+
+```sql
+  CREATE DATABASE app;
+  CREATE ROLE app WITH LOGIN PASSWORD '123456';
 ```
 
 ### create a test table
@@ -606,15 +629,18 @@ INSERT INTO test VALUES(default, 'Hi', 'There');
 
 ```sh
 cd
-vi .bashrc
+vi ~/.pam_environment
 ```
 
 Add
 
 ```
-export PGUSER='app'
-export PGPASSWORD='123456'
-export PGDATABASE='project_name'
+PGUSER=app
+PGPASSWORD=123456
+PGHOST=localhost
+PGPORT=5432
+PGDATABASE=project_name
+DATABASE_URL=postgres://${PGUSER}@${PGHOST}:${PGPORT}/${PGDATABASE}
 ```
 
 Log out and log back in
